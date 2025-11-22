@@ -11,18 +11,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { authClient } from "@/lib/auth-client";
 
 export default function DashboardPage() {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { data: session, isPending } = authClient.useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!session) {
       router.push("/auth/login");
     }
-  }, [isAuthenticated, router]);
+  }, [session, router]);
 
-  if (!user) {
+  if (!session?.user) {
     return <div>Loading...</div>;
   }
 
@@ -34,9 +35,14 @@ export default function DashboardPage() {
             SecureAuth Dashboard
           </h1>
           <Button
-            onClick={() => {
-              logout();
-              router.push("/");
+            onClick={async () => {
+              await authClient.signOut({
+                fetchOptions: {
+                  onSuccess: () => {
+                    router.push("/auth/login"); // redirect to login page
+                  },
+                },
+              });
             }}
             variant="outline"
           >
@@ -54,16 +60,16 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-sm text-muted-foreground">Username</p>
-                <p className="font-medium text-foreground">{user.username}</p>
-              </div>
-              <div>
                 <p className="text-sm text-muted-foreground">Full Name</p>
-                <p className="font-medium text-foreground">{user.full_name}</p>
+                <p className="font-medium text-foreground">
+                  {session.user.name}
+                </p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Email</p>
-                <p className="font-medium text-foreground">{user.email}</p>
+                <p className="font-medium text-foreground">
+                  {session.user.email}
+                </p>
               </div>
             </CardContent>
           </Card>

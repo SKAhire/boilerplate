@@ -14,14 +14,6 @@ export const passwordSchema = z
 
 export const signupSchema = z
   .object({
-    username: z
-      .string()
-      .min(3, "Username must be at least 3 characters")
-      .max(20, "Username must be at most 20 characters")
-      .regex(
-        /^[a-zA-Z0-9_]*$/,
-        "Username can only contain letters, numbers, and underscores"
-      ),
     full_name: z
       .string()
       .min(2, "Full name must be at least 2 characters")
@@ -36,7 +28,7 @@ export const signupSchema = z
   });
 
 export const loginSchema = z.object({
-  username: z.string().min(3, "Username is required"),
+  email: z.string().min(3, "Email is required"),
   password: z.string().min(8, "Password is required"),
 });
 

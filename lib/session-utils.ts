@@ -6,7 +6,6 @@ import type { User } from "@/lib/types"
 export interface SessionPayload {
   userId: string
   email: string
-  username: string
   iat: number
   exp: number
 }
@@ -19,7 +18,6 @@ export function createSessionPayload(user: User, expiresIn = 86400): SessionPayl
   return {
     userId: user.id,
     email: user.email,
-    username: user.username,
     iat: now,
     exp: now + expiresIn,
   }

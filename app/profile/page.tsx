@@ -44,7 +44,6 @@ export default function ProfilePage() {
               <h3 className="text-lg font-semibold text-foreground">
                 {user.full_name}
               </h3>
-              <p className="text-sm text-muted-foreground">@{user.username}</p>
             </div>
           </div>
 
@@ -52,10 +51,6 @@ export default function ProfilePage() {
             <div>
               <p className="text-sm text-muted-foreground">Email Address</p>
               <p className="font-medium text-foreground">{user.email}</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Username</p>
-              <p className="font-medium text-foreground">@{user.username}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Account Created</p>

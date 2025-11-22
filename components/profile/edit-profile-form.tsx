@@ -14,7 +14,6 @@ export function EditProfileForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     full_name: user?.full_name || "",
-    username: user?.username || "",
     email: user?.email || "",
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -24,7 +23,6 @@ export function EditProfileForm() {
     const newErrors: Record<string, string> = {}
 
     if (!formData.full_name.trim()) newErrors.full_name = "Full name is required"
-    if (!formData.username.trim()) newErrors.username = "Username is required"
     if (!formData.email.trim()) newErrors.email = "Email is required"
 
     setErrors(newErrors)
@@ -46,7 +44,6 @@ export function EditProfileForm() {
         setUser({
           ...user,
           full_name: formData.full_name,
-          username: formData.username,
           email: formData.email,
           updated_at: new Date().toISOString(),
         })
@@ -88,18 +85,6 @@ export function EditProfileForm() {
             {errors.full_name && <p className="text-sm text-destructive">{errors.full_name}</p>}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
-            <Input
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="johndoe"
-              disabled={isLoading}
-            />
-            {errors.username && <p className="text-sm text-destructive">{errors.username}</p>}
-          </div>
 
           <div className="space-y-2">
             <Label htmlFor="email">Email Address</Label>

@@ -1,7 +1,6 @@
 // Authentication and user types
 export type User = {
   id: string;
-  username: string;
   email: string;
   full_name: string;
   avatar_url: string | null;
@@ -10,13 +9,11 @@ export type User = {
 };
 
 export type AuthCredentials = {
-  username: string;
   email: string;
   password: string;
 };
 
 export type SignupFormData = {
-  username: string;
   full_name: string;
   email: string;
   password: string;

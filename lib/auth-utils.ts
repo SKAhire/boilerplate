@@ -36,31 +36,6 @@ export const validateEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-// Username validation
-export const validateUsername = (
-  username: string
-): { valid: boolean; error?: string } => {
-  if (username.length < 3) {
-    return { valid: false, error: "Username must be at least 3 characters" };
-  }
-
-  if (username.length > 20) {
-    return {
-      valid: false,
-      error: "Username must be no more than 20 characters",
-    };
-  }
-
-  if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
-    return {
-      valid: false,
-      error:
-        "Username can only contain letters, numbers, underscores, and hyphens",
-    };
-  }
-
-  return { valid: true };
-};
 
 // Generate OTP
 export const generateOTP = (length = 6): string => {

@@ -50,7 +50,6 @@ export function OTPForm() {
 
       const user = {
         id: Math.random().toString(36).substr(2, 9),
-        username: "johndoe",
         email: "john@example.com",
         full_name: "John Doe",
         avatar_url: null,

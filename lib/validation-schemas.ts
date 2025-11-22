@@ -3,13 +3,6 @@
  */
 
 export const signupValidationSchema = {
-  username: {
-    minLength: 3,
-    maxLength: 20,
-    pattern: /^[a-zA-Z0-9_-]+$/,
-    message:
-      "Username can only contain letters, numbers, underscores, and hyphens",
-  },
   email: {
     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     message: "Please enter a valid email address",
@@ -27,9 +20,9 @@ export const signupValidationSchema = {
 };
 
 export const loginValidationSchema = {
-  username: {
+  email: {
     required: true,
-    message: "Username or email is required",
+    message: "email is required",
   },
   password: {
     required: true,
@@ -38,13 +31,6 @@ export const loginValidationSchema = {
 };
 
 export const profileValidationSchema = {
-  username: {
-    minLength: 3,
-    maxLength: 20,
-    pattern: /^[a-zA-Z0-9_-]+$/,
-    message:
-      "Username can only contain letters, numbers, underscores, and hyphens",
-  },
   email: {
     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     message: "Please enter a valid email address",

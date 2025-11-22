@@ -25,7 +25,6 @@ export function SignupForm() {
   const router = useRouter();
   const { setUser, setError, setIsLoading, isLoading } = useAuth();
   const [formData, setFormData] = useState<SignupFormData>({
-    username: "",
     full_name: "",
     email: "",
     password: "",
@@ -37,7 +36,6 @@ export function SignupForm() {
   const validateForm = () => {
     const newErrors: Partial<SignupFormData> = {};
 
-    if (!formData.username.trim()) newErrors.username = "Username is required";
     if (!formData.full_name.trim())
       newErrors.full_name = "Full name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
@@ -205,21 +203,6 @@ export function SignupForm() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                placeholder="johndoe"
-                disabled={isLoading}
-              />
-              {errors.username && (
-                <p className="text-sm text-destructive">{errors.username}</p>
-              )}
-            </div>
-
             <div className="space-y-2">
               <Label htmlFor="full_name">Full Name</Label>
               <Input

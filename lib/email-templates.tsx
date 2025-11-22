@@ -2,13 +2,13 @@
  * Email verification template
  */
 export function getVerificationEmailTemplate(
-  userName: string,
+  name: string,
   verificationLink: string
 ): { subject: string; html: string; text: string } {
   return {
     subject: "Verify your SecureAuth email",
     html: `
-      <h2>Welcome to SecureAuth, ${userName}!</h2>
+      <h2>Welcome to SecureAuth, ${name}!</h2>
       <p>Please verify your email address to complete your account setup.</p>
       <a href="${verificationLink}" style="
         display: inline-block;
@@ -23,7 +23,7 @@ export function getVerificationEmailTemplate(
       <p>This link expires in 24 hours.</p>
     `,
     text: `
-      Welcome to SecureAuth, ${userName}!
+      Welcome to SecureAuth, ${name}!
       
       Please verify your email by visiting this link:
       ${verificationLink}
@@ -37,14 +37,14 @@ export function getVerificationEmailTemplate(
  * Password reset template
  */
 export function getPasswordResetEmailTemplate(
-  userName: string,
+  name: string,
   resetLink: string
 ): { subject: string; html: string; text: string } {
   return {
     subject: "Reset your SecureAuth password",
     html: `
       <h2>Password Reset Request</h2>
-      <p>Hi ${userName},</p>
+      <p>Hi ${name},</p>
       <p>We received a request to reset your SecureAuth password.</p>
       <a href="${resetLink}" style="
         display: inline-block;
@@ -62,7 +62,7 @@ export function getPasswordResetEmailTemplate(
     text: `
       Password Reset Request
       
-      Hi ${userName},
+      Hi ${name},
       
       We received a request to reset your SecureAuth password.
       
@@ -80,14 +80,14 @@ export function getPasswordResetEmailTemplate(
  * OTP email template
  */
 export function getOTPEmailTemplate(
-  userName: string,
+  name: string,
   otpCode: string
 ): { subject: string; html: string; text: string } {
   return {
     subject: "Your SecureAuth verification code",
     html: `
       <h2>Verification Code</h2>
-      <p>Hi ${userName},</p>
+      <p>Hi ${name},</p>
       <p>Your SecureAuth verification code is:</p>
       <div style="
         background-color: #f5f5f5;
@@ -104,7 +104,7 @@ export function getOTPEmailTemplate(
     text: `
       Verification Code
       
-      Hi ${userName},
+      Hi ${name},
       
       Your SecureAuth verification code is: ${otpCode}
       
@@ -118,7 +118,7 @@ export function getOTPEmailTemplate(
 /**
  * Welcome email template
  */
-export function getWelcomeEmailTemplate(userName: string): {
+export function getWelcomeEmailTemplate(name: string): {
   subject: string;
   html: string;
   text: string;
@@ -126,7 +126,7 @@ export function getWelcomeEmailTemplate(userName: string): {
   return {
     subject: "Welcome to SecureAuth!",
     html: `
-      <h2>Welcome to SecureAuth, ${userName}!</h2>
+      <h2>Welcome to SecureAuth, ${name}!</h2>
       <p>Your account has been successfully created.</p>
       <h3>Account Security Tips:</h3>
       <ul>
@@ -138,7 +138,7 @@ export function getWelcomeEmailTemplate(userName: string): {
       <p>If you have any questions, feel free to contact our support team.</p>
     `,
     text: `
-      Welcome to SecureAuth, ${userName}!
+      Welcome to SecureAuth, ${name}!
       
       Your account has been successfully created.
       
@@ -157,7 +157,7 @@ export function getWelcomeEmailTemplate(userName: string): {
  * Security alert template
  */
 export function getSecurityAlertEmailTemplate(
-  userName: string,
+  name: string,
   alertType: string,
   details: string
 ): { subject: string; html: string; text: string } {
@@ -165,7 +165,7 @@ export function getSecurityAlertEmailTemplate(
     subject: "SecureAuth Security Alert",
     html: `
       <h2>Security Alert</h2>
-      <p>Hi ${userName},</p>
+      <p>Hi ${name},</p>
       <p>We detected unusual activity on your SecureAuth account.</p>
       <p><strong>Alert Type:</strong> ${alertType}</p>
       <p><strong>Details:</strong> ${details}</p>
@@ -183,7 +183,7 @@ export function getSecurityAlertEmailTemplate(
     text: `
       Security Alert
       
-      Hi ${userName},
+      Hi ${name},
       
       We detected unusual activity on your SecureAuth account.
       

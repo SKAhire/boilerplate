@@ -143,7 +143,6 @@ export async function verifyOTPAction(email: string, otp_code: string) {
 // Update profile server action
 export async function updateProfileAction(data: {
   full_name: string;
-  username: string;
   email: string;
 }) {
   try {

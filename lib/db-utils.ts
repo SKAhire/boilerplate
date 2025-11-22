@@ -45,14 +45,7 @@ export function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
-/**
- * Validate username format
- */
-export function isValidUsername(username: string): boolean {
-  // 3-20 chars, alphanumeric, underscore, hyphen
-  const usernameRegex = /^[a-zA-Z0-9_-]{3,20}$/;
-  return usernameRegex.test(username);
-}
+
 
 /**
  * Check if password meets security requirements
