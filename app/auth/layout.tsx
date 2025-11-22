@@ -1,24 +1,27 @@
 "use client";
 
 import type React from "react";
-
-import { useAuth } from "@/contexts/auth-context";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+
+  const { data: session, isPending } = authClient.useSession();
+
+  const isAuthPage = pathname === "/login" || pathname === "/register";
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (!isPending && session && isAuthPage) {
       router.push("/dashboard");
     }
-  }, [isAuthenticated, router]);
+  }, [session, isPending, isAuthPage, router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/50 flex items-center justify-center px-4 py-8">

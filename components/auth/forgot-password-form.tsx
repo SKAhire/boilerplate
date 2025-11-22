@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -14,12 +13,15 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { authClient } from "@/lib/auth-client";
+
 
 export function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,11 +33,36 @@ export function ForgotPasswordForm() {
 
     setIsLoading(true);
     setError(null);
+    setInfo(null);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Use Better Auth client to request a password reset email.
+      // redirectTo should point to your reset page where you'll call authClient.resetPassword with the token.
+      const redirectTo = `${location.origin}/auth/reset-password`;
+      const { data, error: clientError } = await (
+        authClient as any
+      ).requestPasswordReset({
+        email: email.trim(),
+        redirectTo,
+      });
+
+      // Library intentionally may not reveal whether the email exists — treat success the same.
+      if (clientError) {
+        // don't reveal existence; show a neutral message for most cases
+        // but surface server messages when useful
+        const msg =
+          (clientError as any)?.message ?? "Failed to send reset email";
+        setError(msg);
+        return;
+      }
+
+      // On success show neutral "check your email" flow
       setSubmitted(true);
+
+      // Optionally surface any informational messages returned by server (non-sensitive)
+      if ((data as any)?.message) {
+        setInfo(String((data as any).message));
+      }
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to send reset email"
@@ -55,17 +82,20 @@ export function ForgotPasswordForm() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {info && <p className="text-sm text-muted-foreground">{info}</p>}
           <p className="text-sm text-muted-foreground">
             If you don't see the email within a few minutes, check your spam
             folder.
           </p>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-col">
             <Button
               variant="outline"
               className="w-full bg-transparent"
               onClick={() => {
                 setSubmitted(false);
                 setEmail("");
+                setError(null);
+                setInfo(null);
               }}
             >
               Try another email
@@ -98,6 +128,7 @@ export function ForgotPasswordForm() {
               onChange={(e) => {
                 setEmail(e.target.value);
                 setError(null);
+                setInfo(null);
               }}
               placeholder="john@example.com"
               disabled={isLoading}
